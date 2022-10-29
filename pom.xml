@@ -23,7 +23,7 @@
     <!-- jhipster-needle-distribution-management -->
 
     <properties>
-        <!-- SonarCloud config  -->
+        <!-- SonarCloud configure-->
         <sonar.organization>davidcal612</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         
