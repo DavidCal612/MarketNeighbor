@@ -1,0 +1,55 @@
+<div>
+  <h2>
+    <span id="metrics-page-heading" marketneighborTranslate="metrics.title" data-cy="metricsPageHeading">Application Metrics</span>
+
+    <button class="btn btn-primary float-end" (click)="refresh()">
+      <fa-icon icon="sync"></fa-icon> <span marketneighborTranslate="metrics.refresh.button">Refresh</span>
+    </button>
+  </h2>
+
+  <h3 marketneighborTranslate="metrics.jvm.title">JVM Metrics</h3>
+
+  <div class="row" *ngIf="metrics && !updatingMetrics">
+    <marketneighbor-jvm-memory class="col-md-4" [updating]="updatingMetrics" [jvmMemoryMetrics]="metrics.jvm"></marketneighbor-jvm-memory>
+
+    <marketneighbor-jvm-threads class="col-md-4" [threads]="threads"></marketneighbor-jvm-threads>
+
+    <marketneighbor-metrics-system
+      class="col-md-4"
+      [updating]="updatingMetrics"
+      [systemMetrics]="metrics.processMetrics"
+    ></marketneighbor-metrics-system>
+  </div>
+
+  <marketneighbor-metrics-garbagecollector
+    *ngIf="metrics && metricsKeyExists('garbageCollector')"
+    [updating]="updatingMetrics"
+    [garbageCollectorMetrics]="metrics.garbageCollector"
+  ></marketneighbor-metrics-garbagecollector>
+
+  <div class="well well-lg" *ngIf="updatingMetrics" marketneighborTranslate="metrics.updating">Updating...</div>
+
+  <marketneighbor-metrics-request
+    *ngIf="metrics && metricsKeyExists('http.server.requests')"
+    [updating]="updatingMetrics"
+    [requestMetrics]="metrics['http.server.requests']"
+  ></marketneighbor-metrics-request>
+
+  <marketneighbor-metrics-endpoints-requests
+    *ngIf="metrics && metricsKeyExists('services')"
+    [updating]="updatingMetrics"
+    [endpointsRequestsMetrics]="metrics.services"
+  ></marketneighbor-metrics-endpoints-requests>
+
+  <marketneighbor-metrics-cache
+    *ngIf="metrics && metricsKeyExists('cache')"
+    [updating]="updatingMetrics"
+    [cacheMetrics]="metrics.cache"
+  ></marketneighbor-metrics-cache>
+
+  <marketneighbor-metrics-datasource
+    *ngIf="metrics && metricsKeyExistsAndObjectNotEmpty('databases')"
+    [updating]="updatingMetrics"
+    [datasourceMetrics]="metrics.databases"
+  ></marketneighbor-metrics-datasource>
+</div>

@@ -1,0 +1,120 @@
+<div>
+  <h2 id="page-heading" data-cy="OrderDetailsHeading">
+    <span marketneighborTranslate="marketNeighborApp.orderDetails.home.title">Order Details</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span marketneighborTranslate="marketNeighborApp.orderDetails.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-order-details"
+        [routerLink]="['/order-details/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span marketneighborTranslate="marketNeighborApp.orderDetails.home.createLabel"> Create a new Order Details </span>
+      </button>
+    </div>
+  </h2>
+
+  <marketneighbor-alert-error></marketneighbor-alert-error>
+
+  <marketneighbor-alert></marketneighbor-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="orderDetails?.length === 0">
+    <span marketneighborTranslate="marketNeighborApp.orderDetails.home.notFound">No orderDetails found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="orderDetails && orderDetails.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr marketneighborSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" marketneighborSortBy="id">
+            <span marketneighborTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" marketneighborSortBy="price">
+            <span marketneighborTranslate="marketNeighborApp.orderDetails.price">Price</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" marketneighborSortBy="amount">
+            <span marketneighborTranslate="marketNeighborApp.orderDetails.amount">Amount</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" marketneighborSortBy="order.id">
+            <span marketneighborTranslate="marketNeighborApp.orderDetails.order">Order</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" marketneighborSortBy="product.name">
+            <span marketneighborTranslate="marketNeighborApp.orderDetails.product">Product</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orderDetails of orderDetails; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/order-details', orderDetails.id, 'view']">{{ orderDetails.id }}</a>
+          </td>
+          <td>{{ orderDetails.price }}</td>
+          <td>{{ orderDetails.amount }}</td>
+          <td>
+            <div *ngIf="orderDetails.order">
+              <a [routerLink]="['/order', orderDetails.order?.id, 'view']">{{ orderDetails.order?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="orderDetails.product">
+              <a [routerLink]="['/product', orderDetails.product?.id, 'view']">{{ orderDetails.product?.name }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/order-details', orderDetails.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" marketneighborTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/order-details', orderDetails.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" marketneighborTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(orderDetails)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" marketneighborTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="orderDetails && orderDetails.length > 0">
+    <div class="d-flex justify-content-center">
+      <marketneighbor-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></marketneighbor-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="client">
+      <h2 data-cy="clientDetailsHeading"><span marketneighborTranslate="marketNeighborApp.client.detail.title">Client</span></h2>
+
+      <hr />
+
+      <marketneighbor-alert-error></marketneighbor-alert-error>
+
+      <marketneighbor-alert></marketneighbor-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span marketneighborTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ client.id }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.address">Address</span></dt>
+        <dd>
+          <span>{{ client.address }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ client.phoneNumber }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ client.firstName }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.secondName">Second Name</span></dt>
+        <dd>
+          <span>{{ client.secondName }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ client.lastName }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.secondLastName">Second Last Name</span></dt>
+        <dd>
+          <span>{{ client.secondLastName }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.sexType">Sex Type</span></dt>
+        <dd>
+          <span marketneighborTranslate="{{ 'marketNeighborApp.Sex.' + client.sexType }}">{{ client.sexType }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.email">Email</span></dt>
+        <dd>
+          <span>{{ client.email }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.documentNumber">Document Number</span></dt>
+        <dd>
+          <span>{{ client.documentNumber }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.user">User</span></dt>
+        <dd>
+          <span>{{ client.user?.login }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.client.documentType">Document Type</span></dt>
+        <dd>
+          <div *ngIf="client.documentType">
+            <a [routerLink]="['/document-type', client.documentType?.id, 'view']">{{ client.documentType?.documentName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

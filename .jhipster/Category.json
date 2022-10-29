@@ -1,0 +1,31 @@
+{
+  "applications": ["MarketNeighbor"],
+  "changelogDate": "20220524190927",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "category",
+  "fields": [
+    {
+      "fieldName": "category",
+      "fieldType": "Categories",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "JEYEWELLS (Joyas),RINGS (Anillos),PLATE (Plata),GOLD (Oro)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Category",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "referenceProduct",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "category",
+      "relationshipName": "product",
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

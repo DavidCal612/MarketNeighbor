@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="CategoryHeading">
+    <span marketneighborTranslate="marketNeighborApp.category.home.title">Categories</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span marketneighborTranslate="marketNeighborApp.category.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-category"
+        [routerLink]="['/category/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span marketneighborTranslate="marketNeighborApp.category.home.createLabel"> Create a new Category </span>
+      </button>
+    </div>
+  </h2>
+
+  <marketneighbor-alert-error></marketneighbor-alert-error>
+
+  <marketneighbor-alert></marketneighbor-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="categories?.length === 0">
+    <span marketneighborTranslate="marketNeighborApp.category.home.notFound">No categories found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="categories && categories.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr marketneighborSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" marketneighborSortBy="id">
+            <span marketneighborTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" marketneighborSortBy="category">
+            <span marketneighborTranslate="marketNeighborApp.category.category">Category</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/category', category.id, 'view']">{{ category.id }}</a>
+          </td>
+          <td marketneighborTranslate="{{ 'marketNeighborApp.Categories.' + category.category }}">{{ category.category }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/category', category.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" marketneighborTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/category', category.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" marketneighborTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(category)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" marketneighborTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="categories && categories.length > 0">
+    <div class="d-flex justify-content-center">
+      <marketneighbor-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></marketneighbor-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "marketNeighborApp": {
+    "orderDetails": {
+      "home": {
+        "title": "Order Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Order Details",
+        "createOrEditLabel": "Create or edit a Order Details",
+        "notFound": "No Order Details found"
+      },
+      "created": "A new Order Details is created with identifier {{ param }}",
+      "updated": "A Order Details is updated with identifier {{ param }}",
+      "deleted": "A Order Details is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Order Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Order Details"
+      },
+      "id": "ID",
+      "price": "Price",
+      "amount": "Amount",
+      "order": "Order",
+      "product": "Product"
+    }
+  }
+}

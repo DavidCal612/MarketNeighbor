@@ -1,0 +1,27 @@
+{
+  "marketNeighborApp": {
+    "orderDetails": {
+      "home": {
+        "title": "Detalles de orden",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevos Detalles de orden",
+        "createOrEditLabel": "Crear o editar Detalles de orden",
+        "notFound": "Ningún Detalle de orden encontrado"
+      },
+      "created": "Un nuevo Detalles de orden ha sido creado con el identificador {{ param }}",
+      "updated": "Un Detalles de orden ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Detalles de orden ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Detalles de orden {{ id }}?"
+      },
+      "detail": {
+        "title": "Detalles de orden"
+      },
+      "id": "ID",
+      "price": "Precio",
+      "amount": "Cantidad",
+      "order": "Orden",
+      "product": "Producto"
+    }
+  }
+}

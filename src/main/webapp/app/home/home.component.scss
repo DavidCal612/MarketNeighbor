@@ -1,0 +1,32 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.hipster {
+  display: inline-block;
+  position: absolute;
+  z-index: auto;
+  width: 1278px;
+  margin-top: 157px;
+  height: 522px;
+  background-size: contain;
+  background: url('../../content/images/img-inicio.jpg') no-repeat center top;
+}
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .hipster {
+    background: url('../../content/images/img-inicio.jpg') no-repeat center top;
+    background-size: contain;
+  }
+  .titleOne {
+    background-color: #444444;
+    opacity: 50%;
+  }
+  .containerOne {
+    background-color: #444444 !important;
+    opacity: 50%;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="orderDetails">
+      <h2 data-cy="orderDetailsDetailsHeading">
+        <span marketneighborTranslate="marketNeighborApp.orderDetails.detail.title">Order Details</span>
+      </h2>
+
+      <hr />
+
+      <marketneighbor-alert-error></marketneighbor-alert-error>
+
+      <marketneighbor-alert></marketneighbor-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span marketneighborTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ orderDetails.id }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.orderDetails.price">Price</span></dt>
+        <dd>
+          <span>{{ orderDetails.price }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.orderDetails.amount">Amount</span></dt>
+        <dd>
+          <span>{{ orderDetails.amount }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.orderDetails.order">Order</span></dt>
+        <dd>
+          <div *ngIf="orderDetails.order">
+            <a [routerLink]="['/order', orderDetails.order?.id, 'view']">{{ orderDetails.order?.id }}</a>
+          </div>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.orderDetails.product">Product</span></dt>
+        <dd>
+          <div *ngIf="orderDetails.product">
+            <a [routerLink]="['/product', orderDetails.product?.id, 'view']">{{ orderDetails.product?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order-details', orderDetails.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

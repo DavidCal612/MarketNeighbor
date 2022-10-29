@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="category">
+      <h2 data-cy="categoryDetailsHeading"><span marketneighborTranslate="marketNeighborApp.category.detail.title">Category</span></h2>
+
+      <hr />
+
+      <marketneighbor-alert-error></marketneighbor-alert-error>
+
+      <marketneighbor-alert></marketneighbor-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span marketneighborTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ category.id }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.category.category">Category</span></dt>
+        <dd>
+          <span marketneighborTranslate="{{ 'marketNeighborApp.Categories.' + category.category }}">{{ category.category }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/category', category.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{
+  "marketNeighborApp": {
+    "PaymentMethod": {
+      "null": "",
+      "CREDIT": "Cuotas",
+      "CASHPAY": "Efectivo"
+    }
+  }
+}

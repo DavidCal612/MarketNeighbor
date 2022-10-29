@@ -1,0 +1,28 @@
+{
+  "marketNeighborApp": {
+    "order": {
+      "home": {
+        "title": "Ordenes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nueva Orden",
+        "createOrEditLabel": "Crear o editar Orden",
+        "notFound": "Ningúna Orden encontrada"
+      },
+      "created": "Una nueva Order ha sido creado con el identificador {{ param }}",
+      "updated": "Una Orden ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Orden ha sido eliminada con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar la Orden {{ id }}?"
+      },
+      "detail": {
+        "title": "Ordenes"
+      },
+      "id": "ID",
+      "date": "Fecha",
+      "status": "Estado",
+      "total": "Total",
+      "orderDetails": "Detalles de orden",
+      "client": "Cliente"
+    }
+  }
+}

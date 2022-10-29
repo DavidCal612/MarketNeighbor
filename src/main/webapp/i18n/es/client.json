@@ -1,0 +1,35 @@
+{
+  "marketNeighborApp": {
+    "client": {
+      "home": {
+        "title": "Clientes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Cliente",
+        "createOrEditLabel": "Crear o editar Cliente",
+        "notFound": "Ningún Cliente encontrado"
+      },
+      "created": "Un nuevo Cliente ha sido creado con el identificador {{ param }}",
+      "updated": "Un Cliente ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Cliente ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar el Cliente {{ id }}?"
+      },
+      "detail": {
+        "title": "Cliente"
+      },
+      "id": "ID",
+      "address": "Dirección",
+      "phoneNumber": "Número de telefono",
+      "firstName": "Primer nombre",
+      "secondName": "Segundo nombre",
+      "lastName": "Primer apellido",
+      "secondLastName": "Segundo apellido",
+      "sexType": "Género",
+      "email": "Correo electrónico",
+      "documentNumber": "Número de documento",
+      "user": "Usuario",
+      "order": "Orden",
+      "documentType": "Tipo de documento"
+    }
+  }
+}

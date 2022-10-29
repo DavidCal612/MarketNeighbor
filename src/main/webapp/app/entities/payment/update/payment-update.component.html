@@ -1,0 +1,135 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="marketneighbor-payment-heading"
+        data-cy="PaymentCreateUpdateHeading"
+        marketneighborTranslate="marketNeighborApp.payment.home.createOrEditLabel"
+      >
+        Create or edit a Payment
+      </h2>
+
+      <div>
+        <marketneighbor-alert-error></marketneighbor-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" marketneighborTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" marketneighborTranslate="marketNeighborApp.payment.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('date')?.errors?.required"
+              marketneighborTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" marketneighborTranslate="marketNeighborApp.payment.iva" for="field_iva">Iva</label>
+          <select class="form-control" name="iva" formControlName="iva" id="field_iva" data-cy="iva">
+            <option [ngValue]="null">{{ 'marketNeighborApp.Iva.null' | translate }}</option>
+            <option *ngFor="let iva of ivaValues" [value]="iva">{{ 'marketNeighborApp.Iva.' + iva | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('iva')!.invalid && (editForm.get('iva')!.dirty || editForm.get('iva')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('iva')?.errors?.required"
+              marketneighborTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" marketneighborTranslate="marketNeighborApp.payment.total" for="field_total">Total</label>
+          <input type="text" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
+          <div *ngIf="editForm.get('total')!.invalid && (editForm.get('total')!.dirty || editForm.get('total')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('total')?.errors?.required"
+              marketneighborTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('total')?.errors?.maxlength"
+              marketneighborTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" marketneighborTranslate="marketNeighborApp.payment.payment" for="field_payment">Payment</label>
+          <select class="form-control" name="payment" formControlName="payment" id="field_payment" data-cy="payment">
+            <option [ngValue]="null">{{ 'marketNeighborApp.PaymentMethod.null' | translate }}</option>
+            <option *ngFor="let paymentMethod of paymentMethodValues" [value]="paymentMethod">
+              {{ 'marketNeighborApp.PaymentMethod.' + paymentMethod | translate }}
+            </option>
+          </select>
+          <div *ngIf="editForm.get('payment')!.invalid && (editForm.get('payment')!.dirty || editForm.get('payment')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('payment')?.errors?.required"
+              marketneighborTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" marketneighborTranslate="marketNeighborApp.payment.order" for="field_order">Order</label>
+          <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="orderOption.id === editForm.get('order')!.value?.id ? editForm.get('order')!.value : orderOption"
+              *ngFor="let orderOption of ordersCollection; trackBy: trackOrderById"
+            >
+              {{ orderOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

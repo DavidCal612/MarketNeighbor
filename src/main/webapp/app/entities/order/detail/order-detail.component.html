@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="order">
+      <h2 data-cy="orderDetailsHeading"><span marketneighborTranslate="marketNeighborApp.order.detail.title">Order</span></h2>
+
+      <hr />
+
+      <marketneighbor-alert-error></marketneighbor-alert-error>
+
+      <marketneighbor-alert></marketneighbor-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span marketneighborTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ order.id }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.order.date">Date</span></dt>
+        <dd>
+          <span>{{ order.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.order.status">Status</span></dt>
+        <dd>
+          <span marketneighborTranslate="{{ 'marketNeighborApp.OrderStatus.' + order.status }}">{{ order.status }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.order.total">Total</span></dt>
+        <dd>
+          <span>{{ order.total }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.order.client">Client</span></dt>
+        <dd>
+          <div *ngIf="order.client">
+            <a [routerLink]="['/client', order.client?.id, 'view']">{{ order.client?.documentNumber }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

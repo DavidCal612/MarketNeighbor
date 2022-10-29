@@ -1,0 +1,9 @@
+{
+  "marketNeighborApp": {
+    "StateDocument": {
+      "null": "",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo"
+    }
+  }
+}

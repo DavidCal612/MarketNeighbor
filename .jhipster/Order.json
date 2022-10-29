@@ -1,0 +1,50 @@
+{
+  "applications": ["MarketNeighbor"],
+  "changelogDate": "20220524190627",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "marketneighbor_order",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "OrderStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PLACED (PedidoRealizado),CANCELED (PedidoCancelado)"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Order",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "detail",
+      "otherEntityName": "orderDetails",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "orderDetails",
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "documentNumber",
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "client",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

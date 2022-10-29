@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="payment">
+      <h2 data-cy="paymentDetailsHeading"><span marketneighborTranslate="marketNeighborApp.payment.detail.title">Payment</span></h2>
+
+      <hr />
+
+      <marketneighbor-alert-error></marketneighbor-alert-error>
+
+      <marketneighbor-alert></marketneighbor-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span marketneighborTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ payment.id }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.payment.date">Date</span></dt>
+        <dd>
+          <span>{{ payment.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.payment.iva">Iva</span></dt>
+        <dd>
+          <span marketneighborTranslate="{{ 'marketNeighborApp.Iva.' + payment.iva }}">{{ payment.iva }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.payment.total">Total</span></dt>
+        <dd>
+          <span>{{ payment.total }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.payment.payment">Payment</span></dt>
+        <dd>
+          <span marketneighborTranslate="{{ 'marketNeighborApp.PaymentMethod.' + payment.payment }}">{{ payment.payment }}</span>
+        </dd>
+        <dt><span marketneighborTranslate="marketNeighborApp.payment.order">Order</span></dt>
+        <dd>
+          <div *ngIf="payment.order">
+            <a [routerLink]="['/order', payment.order?.id, 'view']">{{ payment.order?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/payment', payment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span marketneighborTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+
+application {
+  config {
+    baseName MarketNeighbor
+    applicationType monolith
+    packageName co.edu.sena
+    authenticationType jwt
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    cacheProvider no
+    buildTool maven
+    clientFramework angularX
+    enableTranslation true
+    nativeLanguage es
+    languages [en, es]
+    websocket false
+    jhiPrefix marketneighbor
+    reactive false
+    serverPort 8080
+    searchEngine false
+    clientTheme solar
+    clientThemeVariant dark
+  }
+entities *
+}
+enum OrderStatus{
+	PLACED(PedidoRealizado)
+    CANCELED(PedidoCancelado)
+}
+enum StateDocument{
+	ACTIVE(Activo)
+    INACTIVE(Inactivo)
+}
+enum Sex{
+	MALE(Hombre)
+    FEMALE(Mujer)
+    OTHER(Otro)
+}
+enum Categories{
+	JEYEWELLS(Joyas)
+    RINGS(Anillos)
+    PLATE(Plata)
+    GOLD(Oro)
+}
+enum PaymentMethod{
+	CREDIT(Cuotas)
+    CASHPAY(Efectivo)
+}
+enum Iva{
+	YES(Iva)
+    NO(SinIva)
+}
+entity DocumentType{
+	initials String required maxlength(10) unique
+    documentName String required maxlength(60) unique
+    status StateDocument required
+}
+entity Client{
+	//user String required maxlength(50)
+    //password String required maxlength(50)
+    address String required maxlength(200)
+    phoneNumber String required maxlength(60)
+    firstName String required maxlength(60)
+    secondName String maxlength(60)
+    lastName String required maxlength(60)
+    secondLastName String maxlength(60)
+    sexType Sex required
+    email String required maxlength(200)
+    documentNumber String required maxlength(100) 
+}
+entity Order{
+	date LocalDate required
+    status OrderStatus required
+    total String required maxlength(100) 
+}
+entity OrderDetails{
+	price String required maxlength(50)
+    amount Long required
+}
+entity Product{
+	name String required maxlength(100)
+    referenceProduct String required maxlength(100) unique
+}
+entity Category{
+	category Categories required
+}
+entity Payment{
+	date LocalDate required
+    iva Iva required
+    total String required maxlength(100)
+    payment PaymentMethod required
+}
+relationship OneToMany{
+	Category{product (referenceProduct) required} to Product
+}
+relationship OneToMany{
+	Client to Order{client(documentNumber) required}
+}
+relationship OneToMany{
+	Order{orderDetails(detail) required} to OrderDetails
+}
+relationship OneToMany{
+	DocumentType to Client{documentType(documentName) required}
+}
+relationship OneToOne{
+	Client{user(login) required} to User
+}
+relationship OneToMany{
+	Product to OrderDetails{product(name) required}
+}
+relationship OneToOne{
+	Payment{order} to Order  
+}
+
+dto * with mapstruct
+service * with serviceImpl //SOLID
+paginate * with pagination

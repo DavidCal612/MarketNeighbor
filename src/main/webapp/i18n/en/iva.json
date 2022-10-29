@@ -1,0 +1,9 @@
+{
+  "marketNeighborApp": {
+    "Iva": {
+      "null": "",
+      "YES": "Iva",
+      "NO": "SinIva"
+    }
+  }
+}

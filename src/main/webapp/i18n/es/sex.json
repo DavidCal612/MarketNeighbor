@@ -1,0 +1,10 @@
+{
+  "marketNeighborApp": {
+    "Sex": {
+      "null": "",
+      "MALE": "Hombre",
+      "FEMALE": "Mujer",
+      "OTHER": "Otro"
+    }
+  }
+}
