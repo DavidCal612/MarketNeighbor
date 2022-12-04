@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Order.
     -->
-    <changeSet id="20220524190627-2" author="jhipster">
+    <changeSet id="20220524190627-2" author="marketneighbor">
 
         <addForeignKeyConstraint baseColumnNames="client_id"
                                  baseTableName="marketneighbor_order"

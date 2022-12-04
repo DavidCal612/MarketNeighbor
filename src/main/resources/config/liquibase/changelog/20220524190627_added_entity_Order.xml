@@ -9,7 +9,7 @@
     <!--
         Added the entity Order.
     -->
-    <changeSet id="20220524190627-1" author="jhipster">
+    <changeSet id="20220524190627-1" author="marketneighbor">
         <createTable tableName="marketneighbor_order">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -40,7 +40,7 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20220524190627-1-data" author="jhipster" context="faker">
+    <changeSet id="20220524190627-1-data" author="marketneighbor" context="faker">
         <loadData
                   file="config/liquibase/fake-data/marketneighbor_order.csv"
                   separator=";"
