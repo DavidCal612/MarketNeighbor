@@ -16,7 +16,7 @@
     -->
     <changeSet id="00000000000001" author="marketneighbor">
         <createTable tableName="marketneighbor_user">
-            <column name="id" type="bigint">
+            <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="varchar(50)">
@@ -104,7 +104,7 @@
 
     <changeSet author="marketneighbor" id="00000000000002" context="test">
         <createTable tableName="marketneighbor_date_time_wrapper">
-            <column  name="id" type="BIGINT">
+            <column  name="id" type="bigserial">
                 <constraints primaryKey="true" primaryKeyName="marketneighbor_date_time_wrapperPK"/>
             </column>
             <column name="instant" type="timestamp"/>
