@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - development
+      - errores
   pull_request:
     types: [opened, synchronize, reopened]
 
