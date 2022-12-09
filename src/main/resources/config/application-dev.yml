@@ -34,7 +34,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/marketneighbor
     username: postgres
-    password: 123456
+    password: 1194
     hikari:
       poolName: Hikari
       auto-commit: false

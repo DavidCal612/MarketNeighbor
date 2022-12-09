@@ -44,6 +44,14 @@
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
 
+        <createSequence
+            incrementBy="1"
+            maxValue="9223372036854775807"
+            minValue="10"
+            schemaName="public"
+            sequenceName="marketneighbor_user_id_seq"
+            startValue="10"/>
+
         <createTable tableName="marketneighbor_authority">
             <column name="name" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
