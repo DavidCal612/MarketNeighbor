@@ -12,6 +12,7 @@ import co.edu.sena.domain.DocumentType;
 import co.edu.sena.domain.User;
 import co.edu.sena.domain.enumeration.Sex;
 import co.edu.sena.repository.ClientRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.ClientService;
 import co.edu.sena.service.dto.ClientDTO;
 import co.edu.sena.service.mapper.ClientMapper;
@@ -40,7 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
 class ClientResourceIT {
 
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";

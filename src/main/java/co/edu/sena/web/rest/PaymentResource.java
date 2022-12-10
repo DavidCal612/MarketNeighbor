@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.PaymentRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.PaymentService;
 import co.edu.sena.service.dto.PaymentDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class PaymentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/payments")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\") or hasAuthority(\"" + AuthoritiesConstants.SUPPORT + "\")")
     public ResponseEntity<PaymentDTO> createPayment(@Valid @RequestBody PaymentDTO paymentDTO) throws URISyntaxException {
         log.debug("REST request to save Payment : {}", paymentDTO);
         if (paymentDTO.getId() != null) {
@@ -79,6 +82,15 @@ public class PaymentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/payments/{id}")
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<PaymentDTO> updatePayment(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody PaymentDTO paymentDTO
@@ -114,6 +126,15 @@ public class PaymentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/payments/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<PaymentDTO> partialUpdatePayment(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody PaymentDTO paymentDTO
@@ -145,6 +166,7 @@ public class PaymentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of payments in body.
      */
     @GetMapping("/payments")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\") or hasAuthority(\"" + AuthoritiesConstants.SUPPORT + "\")")
     public ResponseEntity<List<PaymentDTO>> getAllPayments(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Payments");
         Page<PaymentDTO> page = paymentService.findAll(pageable);
@@ -159,6 +181,15 @@ public class PaymentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the paymentDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/payments/{id}")
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<PaymentDTO> getPayment(@PathVariable Long id) {
         log.debug("REST request to get Payment : {}", id);
         Optional<PaymentDTO> paymentDTO = paymentService.findOne(id);
@@ -172,6 +203,15 @@ public class PaymentResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/payments/{id}")
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
         log.debug("REST request to delete Payment : {}", id);
         paymentService.delete(id);

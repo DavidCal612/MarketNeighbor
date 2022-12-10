@@ -9,6 +9,7 @@ import co.edu.sena.IntegrationTest;
 import co.edu.sena.domain.DocumentType;
 import co.edu.sena.domain.enumeration.StateDocument;
 import co.edu.sena.repository.DocumentTypeRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.DocumentTypeDTO;
 import co.edu.sena.service.mapper.DocumentTypeMapper;
 import java.util.List;
@@ -29,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
 class DocumentTypeResourceIT {
 
     private static final String DEFAULT_INITIALS = "AAAAAAAAAA";

@@ -10,6 +10,7 @@ import co.edu.sena.domain.Category;
 import co.edu.sena.domain.Product;
 import co.edu.sena.domain.enumeration.Categories;
 import co.edu.sena.repository.CategoryRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.CategoryDTO;
 import co.edu.sena.service.mapper.CategoryMapper;
 import java.util.List;
@@ -30,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
 class CategoryResourceIT {
 
     private static final Categories DEFAULT_CATEGORY = Categories.JEYEWELLS;

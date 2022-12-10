@@ -1,6 +1,7 @@
 package co.edu.sena.web.rest;
 
 import co.edu.sena.repository.OrderDetailsRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.OrderDetailsService;
 import co.edu.sena.service.dto.OrderDetailsDTO;
 import co.edu.sena.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class OrderDetailsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/order-details")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\") or hasAuthority(\"" + AuthoritiesConstants.SUPPORT + "\")")
     public ResponseEntity<OrderDetailsDTO> createOrderDetails(@Valid @RequestBody OrderDetailsDTO orderDetailsDTO)
         throws URISyntaxException {
         log.debug("REST request to save OrderDetails : {}", orderDetailsDTO);
@@ -80,6 +83,15 @@ public class OrderDetailsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/order-details/{id}")
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<OrderDetailsDTO> updateOrderDetails(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody OrderDetailsDTO orderDetailsDTO
@@ -115,6 +127,15 @@ public class OrderDetailsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/order-details/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<OrderDetailsDTO> partialUpdateOrderDetails(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody OrderDetailsDTO orderDetailsDTO
@@ -147,6 +168,7 @@ public class OrderDetailsResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderDetails in body.
      */
     @GetMapping("/order-details")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\") or hasAuthority(\"" + AuthoritiesConstants.SUPPORT + "\")")
     public ResponseEntity<List<OrderDetailsDTO>> getAllOrderDetails(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         @RequestParam(required = false, defaultValue = "true") boolean eagerload
@@ -169,6 +191,15 @@ public class OrderDetailsResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the orderDetailsDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/order-details/{id}")
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<OrderDetailsDTO> getOrderDetails(@PathVariable Long id) {
         log.debug("REST request to get OrderDetails : {}", id);
         Optional<OrderDetailsDTO> orderDetailsDTO = orderDetailsService.findOne(id);
@@ -182,6 +213,15 @@ public class OrderDetailsResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/order-details/{id}")
+    @PreAuthorize(
+        "hasAuthority(\"" +
+        AuthoritiesConstants.ADMIN +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.SUPPORT +
+        "\") or hasAuthority(\"" +
+        AuthoritiesConstants.ASSISTANT +
+        "\")"
+    )
     public ResponseEntity<Void> deleteOrderDetails(@PathVariable Long id) {
         log.debug("REST request to delete OrderDetails : {}", id);
         orderDetailsService.delete(id);

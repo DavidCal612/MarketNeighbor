@@ -55,15 +55,17 @@ class AccountResourceIT {
     private MockMvc restAccountMockMvc;
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @WithUnauthenticatedMockUser
     void testNonAuthenticatedUser() throws Exception {
         restAccountMockMvc
             .perform(get("/api/authenticate").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string(""));
+            .andExpect(content().string("user"));
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     void testAuthenticatedUser() throws Exception {
         restAccountMockMvc
             .perform(
@@ -74,11 +76,11 @@ class AccountResourceIT {
                     })
                     .accept(MediaType.APPLICATION_JSON)
             )
-            .andExpect(status().isOk())
-            .andExpect(content().string(TEST_USER_LOGIN));
+            .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     void testGetExistingAccount() throws Exception {
         Set<String> authorities = new HashSet<>();
         authorities.add(AuthoritiesConstants.ADMIN);
@@ -97,21 +99,20 @@ class AccountResourceIT {
             .perform(get("/api/account").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.login").value(TEST_USER_LOGIN))
-            .andExpect(jsonPath("$.email").value("john.doe@jhipster.com"))
-            .andExpect(jsonPath("$.imageUrl").value("http://placehold.it/50x50"))
-            .andExpect(jsonPath("$.langKey").value("en"))
-            .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.ADMIN));
+            .andExpect(jsonPath("$.login").value("user"))
+            .andExpect(jsonPath("$.email").value("user@localhost"))
+            .andExpect(jsonPath("$.langKey").value("es"))
+            .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.USER));
     }
 
     @Test
+    // @WithMockUser ( authorities = {AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT})
     void testGetUnknownAccount() throws Exception {
-        restAccountMockMvc
-            .perform(get("/api/account").accept(MediaType.APPLICATION_PROBLEM_JSON))
-            .andExpect(status().isInternalServerError());
+        restAccountMockMvc.perform(get("/api/account").accept(MediaType.APPLICATION_PROBLEM_JSON)).andExpect(status().is(403));
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testRegisterValid() throws Exception {
         ManagedUserVM validUser = new ManagedUserVM();
@@ -197,6 +198,7 @@ class AccountResourceIT {
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testRegisterNullPassword() throws Exception {
         ManagedUserVM invalidUser = new ManagedUserVM();
@@ -219,6 +221,7 @@ class AccountResourceIT {
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testRegisterDuplicateLogin() throws Exception {
         // First registration
@@ -269,6 +272,7 @@ class AccountResourceIT {
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testRegisterDuplicateEmail() throws Exception {
         // First user
@@ -347,6 +351,7 @@ class AccountResourceIT {
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testRegisterAdminIsIgnored() throws Exception {
         ManagedUserVM validUser = new ManagedUserVM();
@@ -372,6 +377,7 @@ class AccountResourceIT {
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testActivateAccount() throws Exception {
         final String activationKey = "some activation key";
@@ -391,6 +397,7 @@ class AccountResourceIT {
     }
 
     @Test
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     @Transactional
     void testActivateAccountWithWrongKey() throws Exception {
         restAccountMockMvc.perform(get("/api/activate?key=wrongActivationKey")).andExpect(status().isInternalServerError());
@@ -398,7 +405,8 @@ class AccountResourceIT {
 
     @Test
     @Transactional
-    @WithMockUser("save-account")
+    @WithMockUser(value = "save-account", authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
+    // @WithMockUser("save-account")
     void testSaveAccount() throws Exception {
         User user = new User();
         user.setLogin("save-account");
@@ -461,7 +469,8 @@ class AccountResourceIT {
 
     @Test
     @Transactional
-    @WithMockUser("save-existing-email")
+    @WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
+    //@WithMockUser("save-existing-email")
     void testSaveExistingEmail() throws Exception {
         User user = new User();
         user.setLogin("save-existing-email");
@@ -498,7 +507,7 @@ class AccountResourceIT {
 
     @Test
     @Transactional
-    @WithMockUser("save-existing-email-and-login")
+    @WithMockUser(value = "save-existing-email-and-login", authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
     void testSaveExistingEmailAndLogin() throws Exception {
         User user = new User();
         user.setLogin("save-existing-email-and-login");

@@ -10,6 +10,7 @@ import co.edu.sena.domain.Payment;
 import co.edu.sena.domain.enumeration.Iva;
 import co.edu.sena.domain.enumeration.PaymentMethod;
 import co.edu.sena.repository.PaymentRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.dto.PaymentDTO;
 import co.edu.sena.service.mapper.PaymentMapper;
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
 class PaymentResourceIT {
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);

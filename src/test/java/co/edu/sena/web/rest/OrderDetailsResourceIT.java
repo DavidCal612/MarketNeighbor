@@ -10,6 +10,7 @@ import co.edu.sena.IntegrationTest;
 import co.edu.sena.domain.OrderDetails;
 import co.edu.sena.domain.Product;
 import co.edu.sena.repository.OrderDetailsRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.OrderDetailsService;
 import co.edu.sena.service.dto.OrderDetailsDTO;
 import co.edu.sena.service.mapper.OrderDetailsMapper;
@@ -38,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
 class OrderDetailsResourceIT {
 
     private static final String DEFAULT_PRICE = "AAAAAAAAAA";

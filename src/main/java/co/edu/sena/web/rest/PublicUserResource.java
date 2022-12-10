@@ -1,5 +1,6 @@
 package co.edu.sena.web.rest;
 
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.UserService;
 import co.edu.sena.service.dto.UserDTO;
 import java.util.*;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
@@ -59,6 +61,7 @@ public class PublicUserResource {
      * @return a string list of all roles.
      */
     @GetMapping("/authorities")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\") or hasAuthority(\"" + AuthoritiesConstants.SUPPORT + "\")")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
     }

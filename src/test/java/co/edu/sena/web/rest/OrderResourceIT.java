@@ -12,6 +12,7 @@ import co.edu.sena.domain.Order;
 import co.edu.sena.domain.OrderDetails;
 import co.edu.sena.domain.enumeration.OrderStatus;
 import co.edu.sena.repository.OrderRepository;
+import co.edu.sena.security.AuthoritiesConstants;
 import co.edu.sena.service.OrderService;
 import co.edu.sena.service.dto.OrderDTO;
 import co.edu.sena.service.mapper.OrderMapper;
@@ -42,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { AuthoritiesConstants.ADMIN, AuthoritiesConstants.SUPPORT })
 class OrderResourceIT {
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
