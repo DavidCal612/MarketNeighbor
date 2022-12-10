@@ -3,7 +3,6 @@
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
       <span marketneighborTranslate="global.title" class="navbar-title">MarketNeighbor</span>
-      <span class="navbar-version">{{ version }}</span>
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -29,7 +28,7 @@
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
-          *ngSwitchCase="true"
+          *marketneighborHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
@@ -200,6 +199,32 @@
                 (click)="changeLanguage(language); collapseNavbar()"
                 >{{ language | findLanguageFromKey }}</a
               >
+            </li>
+          </ul>
+        </li>
+        <li
+          *marketneighborHasAnyAuthority="'ROLE_USER'"
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="product-menu" data-cy="accountMenu">
+            <span *ngIf="!account?.imageUrl">
+              <fa-icon icon="user"></fa-icon>
+              <span marketneighborTranslate="global.menu.products.main">Product</span>
+            </span>
+            <span *ngIf="account?.imageUrl">
+              <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
+            </span>
+          </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
+            <li *ngSwitchCase="true">
+              <a class="dropdown-item" routerLink="product" routerLinkActive="active" (click)="collapseNavbar()" data-cy="settings">
+                <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                <span marketneighborTranslate="global.menu.products.list">List</span>
+              </a>
             </li>
           </ul>
         </li>

@@ -9,6 +9,7 @@
       </button>
 
       <button
+        *marketneighborHasAnyAuthority="'ROLE_ADMIN'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-product"
@@ -57,12 +58,13 @@
           <td>{{ product.referenceProduct }}</td>
           <td>
             <div *ngIf="product.category">
-              <a [routerLink]="['/category', product.category?.id, 'view']">{{ product.category?.id }}</a>
+              <span>{{ product.category?.id }}</span>
             </div>
           </td>
           <td class="text-end">
             <div class="btn-group">
               <button
+                *marketneighborHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"
                 [routerLink]="['/product', product.id, 'view']"
                 class="btn btn-info btn-sm"
@@ -73,6 +75,7 @@
               </button>
 
               <button
+                *marketneighborHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"
                 [routerLink]="['/product', product.id, 'edit']"
                 class="btn btn-primary btn-sm"
@@ -82,7 +85,13 @@
                 <span class="d-none d-md-inline" marketneighborTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(product)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button
+                *marketneighborHasAnyAuthority="'ROLE_ADMIN'"
+                type="submit"
+                (click)="delete(product)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" marketneighborTranslate="entity.action.delete">Delete</span>
               </button>

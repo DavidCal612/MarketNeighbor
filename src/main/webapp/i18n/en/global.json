@@ -16,6 +16,10 @@
         "payment": "Payment",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
+      "products": {
+        "main": "Products",
+        "list": "List of products"
+      },
       "account": {
         "main": "Account",
         "settings": "Settings",

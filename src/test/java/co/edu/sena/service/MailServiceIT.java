@@ -141,11 +141,10 @@ class MailServiceIT {
         mailService.sendEmailFromTemplate(user, "mail/testEmail", "email.test.title");
         verify(javaMailSender).send(messageCaptor.capture());
         MimeMessage message = messageCaptor.getValue();
-        assertThat(message.getSubject()).isEqualTo("Activación de MarketNeighbor");
+        assertThat(message.getSubject()).isEqualTo("test title");
         assertThat(message.getAllRecipients()[0]).hasToString(user.getEmail());
         assertThat(message.getFrom()[0]).hasToString(jHipsterProperties.getMail().getFrom());
-        assertThat(message.getContent().toString())
-            .isEqualToNormalizingNewlines("<html>Activación de MarketNeighbor, http://127.0.0.1:8080, john</html>\n");
+        assertThat(message.getContent().toString()).isEqualToNormalizingNewlines("<html>test title, http://127.0.0.1:8080, john</html>\n");
         assertThat(message.getDataHandler().getContentType()).isEqualTo("text/html;charset=UTF-8");
     }
 
